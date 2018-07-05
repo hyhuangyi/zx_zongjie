@@ -1,0 +1,126 @@
+							Spring注解
+
+传统的Spring做法是使用.xml文件来对bean进行注入或者是配置aop、事物，这么做有两个缺点：
+
+1、如果所有的内容都配置在.xml文件中，那么.xml文件将会十分庞大；如果按需求分开.xml文件，那么.xml文件又会非常多。总之这将导致配置文件的可读性与可维护性变得很低。
+
+2、在开发中在.java文件和.xml文件之间不断切换，是一件麻烦的事，同时这种思维上的不连贯也会降低开发的效率。
+
+为了解决这两个问题，Spring引入了注解，通过"@XXX"的方式，让注解与Java Bean紧密结合，既大大减少了配置文件的体积，又增加了Java Bean的可读性与内聚性。
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-->@Autowired 默认按类型匹配的方式，在容器查找匹配的Bean，当有且仅有一个匹配的Bean时，Spring将其注入@Autowired标注的变量中
+
+-->@Qualifier注解限定Bean的名称 与@Autowired 存在多个实例配合使用
+
+-->@Resource  后面没有任何内容，默认通过name属性去匹配bean，找不到再按type去匹配
+
+然后，区分一下@Autowired和@Resource两个注解的区别：
+(1)、@Autowired默认按照byType方式进行bean匹配，@Resource默认按照byName方式进行bean匹配
+
+(2)、@Autowired是Spring的注解，@Resource是J2EE的注解，这个看一下导入注解的时候这两个注解的包名就一清二楚了
+
+Spring属于第三方的，J2EE是Java自己的东西，因此，建议使用@Resource注解，以减少代码和Spring之间的耦合。
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+如果某个类的头上带有特定的注解【@Component/@Repository/@Service/@Controller】，就会将这个对象作为Bean注册进Spring容器。
+
+-->@Component   泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注
+
+-->@ Repository 用于标注数据访问组件，即DAO组件
+
+-->@Service     用于标注业务层组件
+
+-->@Controller  用于标注控制层组件
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+@ModelAttribute  如果把@ModelAttribute放在方法的注解上时，代表的是：该Controller的所有方法在调用前，先执行此@ModelAttribute方法。
+
+                 如果把@ModelAttribute用在方法参数上 从Form表单或URL参数中获取（实际上，不做此注释也能拿到user对象） 注意这时候这个实体类一定要有没有参数的构造函数。
+
+
+@SessionAttributes  只能在类上使用，不能在方法上使用。 Spring 允许我们有选择地指定 ModelMap 中的哪些属性需要转存到 session 中，
+
+		    以便下一个请求属对应的 ModelMap 的属性列表中还能访问到这些属性。
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@RequestMapping  用来处理请求地址映射的注解
+
+
+@requestParam    主要用于在SpringMVC后台控制层获取参数
+
+
+@PathVariable    用于将请求URL中的模板变量映射到功能处理方法的参数上，即取出uri模板中的变量作为参数
+
+
+@InitBinder      对页面数据进行解析绑定
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@ResponseBody   作用： 该注解用于将Controller的方法返回的对象，通过适当的HttpMessageConverter转换为指定格式后，写入到Response对象的body数据区。
+
+		使用时机：返回的数据不是html标签的页面，而是其他某种格式的数据时（如json、xml等）使用；
+
+
+@RequestBody  	以前，一直以为在SpringMVC环境中，@RequestBody接收的是一个Json对象，一直在调试代码都没有成功，后来发现，
+		其实 @RequestBody接收的是一个Json对象的字符串，而不是一个Json对象。然而在ajax请求往往传的都是Json对象，
+		后来发现用 JSON.stringify(data)的方式就能将对象变成字符串。同时ajax请求的时候也要指定contentType:"application/json;charset=utf-8" 
+		表明提交的类型和编码格式。这样就可以轻易的将一个对象或者List传到Java端，使用@RequestBody即可绑定对象或者List.
+
+
+
+<script type="text/javascript">$(document).ready(function() {
+    var saveDataAry = [];
+    var data1 = {
+      "userName": "test",
+      "address": "gz"
+    };
+    var data2 = {
+      "userName": "ququ",
+      "address": "gr"
+    };
+    saveDataAry.push(data1);
+    saveDataAry.push(data2);
+    $.ajax({
+      type: "POST",
+      url: "/user",
+      dataType: "json",
+      contentType: "application/json;charset=utf-8",
+      data: JSON.stringify(saveData),
+      success: function(data) {}
+    });
+  });
+</script>
+
+Java代码
+
+    @RequestMapping(value = "saveUser", method = {RequestMethod.POST }}) 
+    @ResponseBody  
+    public void saveUser(@RequestBody List<User> users) { 
+        userService.batchSave(users); 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

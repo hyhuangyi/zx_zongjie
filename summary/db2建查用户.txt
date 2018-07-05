@@ -1,0 +1,36 @@
+
+1）新建一个组  db2select   语句：groupadd db2select
+
+
+
+2）组下建一个用户 lookuser  注：用户名字不能太长  语句：useradd -m -g db2select -d /home/lookuser lookuser    
+
+
+3）修改密码 passwd  lookuser   
+
+
+4)切换到DB2ADMIN用户
+
+
+5）执行db2 connect to hmydwd
+
+6）赋予连接权限（测试机没执行这句也可以连接）db2 grant connect on database to user lookuser 
+
+
+7）执行 db2 "select 'db2 grant select on table DB2ADMIN.'|| tabname ||' to user lookuser' from syscat.tables where tabschema='DB2ADMIN'"
+
+
+  其中lookuser为用户名 替换为你新建的用户名   DB2ADMIN为schema名   微贷中有2个schema  1)DATA   2)DB2ADMIN 
+
+
+  执行完会出现很多条grant语句 选中复制全部语句执行即可
+
+
+注:执行完上面的也要把DATA也要执行一次 （方法同上）语句为 
+
+db2 "select 'db2 grant select on table DATA.'|| tabname ||' to user lookuser' from syscat.tables where tabschema='DATA'"
+
+
+
+操作结束 连接验证 
+

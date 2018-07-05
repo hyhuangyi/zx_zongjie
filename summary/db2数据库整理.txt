@@ -1,0 +1,50 @@
+
+modified by codepage=1208 utf-8编码  codepage=1386 gbk编码
+
+在一个开启了归档日志的数据库中，做一个表的导入操作，最好在导入语句后面加上nonrecoverable，否则该表所在的表空间会处于备份暂挂状态，重新备份才能使用
+
+导出数据语句  
+db2 "select 'db2 export to f:/dles/'||tabname||'.del of del modified by codepage=1208 select *from DB2ADMIN.'||tabname||'' from syscat.tables where tabschema='DB2ADMIN'"
+
+导入数据语句
+db2 "select 'db2 load client from f:/dels/'||tabname||'.del of del  modified by codepage=1208 delprioritychar replace into DB2ADMIN.'||tabname||' nonrecoverable' from syscat.tables where tabschema='DB2ADMIN'"
+
+/**********************************************************导出结构*******************************************************************************/
+
+					db2look -d hmnd -i db2admin -w 123456 -a -e -o f:/db_ddl.sql
+
+/**********************************************************导出数据*******************************************************************************/
+
+					db2 -tvf E:\hmydnd_Bak\loadData.sql 
+
+
+/**********************************************************创建新库*******************************************************************************/
+
+
+							1.创建数据库
+
+							2.执行表结构语句
+
+							3.导入基本数据
+
+/*******************************************************建数据库*******************************************************************************/
+ 
+ 1.db2 "CREATE DATABASE HY AUTOMATIC STORAGE YES  ON 'D:' DBPATH ON 'D:' USING CODESET UTF-8 TERRITORY CN COLLATE USING SYSTEM PAGESIZE 32768"
+
+	说明：数据文件放在D:下。
+	属性：数据库名HY，自动存储器，32K页大小，UTF-8编码，数据库路径为/DATA
+
+/******************************************************执行建表语句****************************************************************************/
+
+2.db2 -tvf f:/db_ddl.sql
+
+/******************************************************给db2admin赋权限****************************************************************************/
+
+db2 connect to hy user db2admin using 123456
+
+db2 grant dbadm,createtab,bindadd,connect,create_not_fenced_routine,implicit_schema,load,create_external_routine,quiesce_connect,secadm on database to user db2admin;
+
+/********************************************************导入数据****************************************************************************/
+
+3.db2 -tvf E:\hmydnd_Bak\loadData.sql 
+

@@ -1,0 +1,24 @@
+								   Socket
+
+
+Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组
+
+简单的接口就是全部，让Socket去组织数据，以符合指定的协议。
+
+Socket用于在两个基于TCP/IP协议的应用程序之间相互通信。
+
+ ServerSocket serverSocket=new ServerSocket(8888);
+ Socket socket=serverSocket.accept();
+
+ Socket socket = new Socket("127.0.0.1",8888);
+
+
+
+
+								WebSocket(应用层协议)
+
+"WebSocket protocol 是HTML5一种新的协议。它实现了浏览器与服务器全双工通信(full-duplex)。一开始的握手需要借助HTTP请求完成。"  ——百度百科
+
+目的：即时通讯，替代轮询
+
+WebSocket是双向通信协议，模拟Socket协议，可以双向发送或接受信息。HTTP是单向的。

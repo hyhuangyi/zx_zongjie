@@ -1,0 +1,126 @@
+                                 基础集合
+ 方法重载:overload发生在同一类当中，方法名相同，参数列表不同，方法体不同，
+          重载遵循编译期绑定，重载调用看（类型）引用
+	  
+ 方法重写:override发生在父子类当中，方法名相同，参数列表相同，方法体不同
+	  重写遵循运行期绑定，重写调用看对象
+	  父类私有方法不能被重写。2同2小（返回类型，抛出异常）1大（访问权限）
+
+ 
+ 面向对象:万物皆对象，java中将具有相同特征的一组对象的集合抽象成类。
+          类是对象的定义，对象是类的实例化。
+          面向对象有三大特征：
+          封装:隐藏实现的细节更易于维护，确保安全性;
+	  继承:提高了代码的可复用性;
+	  多态:同一种行为在不同的对象上有不同的表现形式。
+
+ 
+
+ HashMap和Hashtable的区别:
+	 HashMap是Hashtable的轻量级实现（非线程安全的实现），它们都完成了Map接口，
+	 主要区别在HashMap允许空（null）键值（key），由于非线程安全，在只有一个
+	 线程访问的情况下，效率要高于Hashtable。
+	 最大的不同HashMap是线程不安全的，不是同步的，而Hashtable是线程安全的，也就
+	 是说是同步的。
+
+ List和Map区别:
+         List是存储单列数据的集合，Map是存储键和值这样的双列数据的集合。
+	 List中存储的数据是有序的，并且允许重复；而Map存储的数据是没有顺序的，其键
+         是不能重复的，它的值是可以有重复的。
+
+ ArrayList和Vector的区别
+        Vector是线程安全的，是线程同步的，而ArrayList是线程序不安全的，不同步的。
+    	ArrayList与Vector都有一个初始的容量大小，当存储元素超过容量时，就需要增加
+	存储空间，Vector增长原来的一倍，ArrayList增加原来的0.5倍。
+
+ LinkedList: 是一种双向链表数据结构，它既具有线性表的特性也具有双端队列的特性
+             LinkedList同时实现了List和Deque。由于是由链表实现的，因此不像数组
+             那样可以指定初始长度，它只有一个空的构造器。
+
+  各线性表的性能主要看底层如何实现，不过就是数组和链表两种，链表插入，删除高效
+  而数组随机访问、批量处理高效，链表使用迭代器高效。			
+   
+ Set add,remove,contains;Map put,remove,contains ;List get,set,add,remove,contains.
+ 迭代器iterator /itareit/
+
+ 去掉一个Vector集合中重复的元素 
+ HashSet set = new HashSet(vector)；
+
+
+
+				  WEB
+
+1.HTTP请求的GET和POST方式的区别
+  get是从服务器获取数据，而post是向服务器传递数据；
+  get是将参数放入地址栏的URL路径中，而post是实体内容传参；
+  get数据数据量有限，不适合提交大量数据，而post适合提交大量数据；
+  get安全性小，post安全性高。
+
+
+2.解释下什么是servlet?
+  他是web服务器内部的服务端的应用程序，他协调了客户端请求与服务器响应，
+  由web服务器进行加载，可以生成动态页面。 
+
+3.servlet的生命周期?
+  服务器启动的时候接受客户端请求，第一次请求servlet时会初始化该servlet并调用init方法
+  以后的请求直接调用service方法,服务器关闭时调用destory方法,释放Servlet资源。 
+
+4.SERVLET API中forward() 与redirect()的区别？
+  forward是服务器请求资源，服务器直接访问目标地址的URL，把那个URL的响应内容读取过来，
+  然后把这些内容再发给浏览器，浏览器根本不知道服务器发送的内容是从哪儿来的，所以它的
+  地址栏中还是原来的地址。
+  redirect就是服务器会发送一个状态码给浏览器,告诉浏览器重新去请求那个地址，然后用刚才
+  请求的所有参数重新请求。所以浏览器的地址会改变。
+ 
+5.jsp有哪些内置对象?作用分别是什么? 分别有什么方法？
+   request 客户端请求，此请求会包含来自GET/POST请求的参数  HttpServletRequest
+   response 网页传回客户端的回应          HttpServletResponse
+   session  会话                          HttpSession
+   out 输出的数据流                       JspWriter
+   application 全局上下文对象             ServletContext
+   config  servlet配置对象                ServletConfig
+   page  网页本身                         Object
+   pageContext jsp页面上下文              PageContext
+   exception  捕获网页异常                Throwable
+
+6.页面间对象传递的方法
+  request，session，application，cookie
+
+                                    数据库
+
+1.数据库优化经验
+ ①用preparedstatement一般比statement性能好
+ ②有外键约束会影响插入和删除性能，如果程序能够保证数据的完整性，
+ 那在设计数据库时就去掉外键。
+ ③sql语句全部大写，特别是列名和表名都大写。
+ ④使用索引
+ ⑤.批量更新
+ 总结：去外键，用索引，全大写，批处理，用prepared
+
+2.JDBC执行步骤
+  ①加载驱动 Class.forName();
+  ②获取连接 DriverManager的getConnection()
+  ③创建一个statement
+  ④执行sql语句
+  ⑤处理结果ResultSet
+  ⑥关闭连接
+  贾琏欲执事 
+
+3.分页查询
+  ①确定查询数据每页条目数pageSize
+  ②对数据编号
+  ③根据行号取范围
+  mysql中使用limit函数
+
+
+
+
+
+
+
+
+
+
+
+
+  

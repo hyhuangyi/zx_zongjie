@@ -1,0 +1,28 @@
+yum search java
+
+先看下java对应的版本，我装的是1.8版本的java包。
+
+yum install java-1.8.0-openjdk.x86_64
+
+装好了就能用java命令了。
+
+配置下JAVA_HOME配置文件：
+
+vim /etc/profile把下面填进去
+
+#set java environment
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el6_9.x86_64
+JRE_HOME=$JAVA_HOME/jre
+CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export JAVA_HOME JRE_HOME CLASS_PATH PATH
+
+ 
+
+填完要source一下，命令是       source /etc/profile
+
+还要用javac？
+
+yum install -y java-1.8.0-openjdk-devel.x86_64
+
+这个安装好了就可以用javac了

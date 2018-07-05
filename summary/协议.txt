@@ -1,0 +1,22 @@
+1.TCP/IP(Transmission Control Protocol/Internet Protocol)传输控制协议/Internet协议
+
+2.UDP(User Datagram Protocol)用户数据报协议  
+
+3.Talk协议 
+
+4.HTTPS(Secure Hypertext Transfer Protocol)安全超文本传输协议 
+
+5.FTP(File Transfer Protocol)文件传输协议 
+
+
+网络由下往上分为　
+
+　物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。　　
+ 
+通过初步的了解，我知道IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层，三者从本质上来说没有可比性，socket则是对TCP/IP协议的封装和应用(程序员层面上)。　
+
+也可以说，TPC/IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP是应用层协议，主要解决如何包装数据。　　
+
+关于TCP/IP和HTTP协议的关系，网络有一段比较容易理解的介绍：　　
+
+  “我们在传输数据时，可以只使用(传输层)TCP/IP协议，但是那样的话，如果没有应用层，便无法识别数据内容。

@@ -1,0 +1,21 @@
+function getPostData(){
+    var params = [];
+    $(".tableParam").each(function(){
+
+        var param = {};
+        $(this).find("input").each(function(){
+            var  name = $(this).attr("name");
+            if(name == "") {
+                return;
+            }
+
+            param[name] = $(this).val();
+        });
+        $(this).find(".ui-textarea-text").each(function () {
+            var  name = $(this).attr("name");
+            param[name]=$(this).val();
+        });
+         params.push(param);
+    })
+    dataArray = JSON.stringify(params);
+}

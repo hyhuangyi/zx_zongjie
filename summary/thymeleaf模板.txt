@@ -1,0 +1,79 @@
+                                                   thymeleaf [taim li:f] 
+
+			hymeleaf 是新一代的模板引擎，在spring4.0中推荐使用thymeleaf来做前端模版引擎。
+
+
+一、引用命名空间 <html xmlns:th="http://www.thymeleaf.org"> 
+
+        在html中引入此命名空间，可避免编辑器出现html验证错误，虽然加不加命名空间对Thymeleaf的功能没有任何影响。
+
+
+
+二、表达式
+
+	1.${ }   变量表达式  th:text="${person.name}"  
+	2.*{ }   选择变量表达式  th:object="${person}"  th:text="*{name}"    
+
+   	注：选择变量表达式与变量表达式的不同之处在于, 如果前面有一个选择对象了, 那么用它获取
+	    这个选择对象的属性或方法时, 可以不写对象名.
+
+	3.@{ }	 URL表达式 th:src="@{/user/getUser.html(name=${person.name},age=12)}"
+
+	4.#{ }   消息表达式 
+
+		消息中也可以包含变量, 比如在 index.welcome 中, 想打印出时间:
+
+
+		# 在 messages.properties 文件中用 {0}, {1}, {2}, ... 占位符
+
+		index.welcome=Welcome to <b>SpringMVC</b>, time is: {0}
+
+		那么在 index.html 模板文件中就可以这样写:
+
+
+		<p th:utext="#{index.welcome(${date})}">Welcome message</p>
+
+		其中 ${date} 就像一个参数那样被传进去了
+
+
+三、Utility
+
+	为了模板更加易用，Thymeleaf 内置了一些 utility 函数，可以通过 # 直接访问，例如dates strngs,numbers
+	${#dates.format(date)}  ${#strings.isEmpty(name)}  ${#numbers.formatDecimal(num,3,2)}
+
+
+四、字面量
+	
+	1.文本字面量：th:text 加代码  th:utext 纯文本
+
+	2.数值字面量  
+
+	3.布尔值字面量
+
+	4.Null值字面量
+
+	5.Tokens字面量 （不需单引号）
+	这些令牌允许在标准表达式中进行一点简化。它们的工作与文本文字（'...'）完全相同，
+	但它们只允许使用字母（A-Z和a-z），数字（	0-9），括号（[和]），点（.），连字符（-）和下划线（_）。
+	所以没有空白，没有逗号等.
+
+五、文本操作符
+
+	1. +   连接字符串
+
+	2.|...|  字面量替换
+
+
+六.迭代
+
+   1.th:each="city : ${city}"
+	
+
+
+附: https://www.jianshu.com/p/a7056b023df0
+
+
+
+
+
+ 

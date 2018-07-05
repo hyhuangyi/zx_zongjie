@@ -1,0 +1,6 @@
+NATAPP官网 :  https://natapp.cn/
+
+
+cmd下进入natapp.exe 运行: natapp -authtoken=xxxxx
+
+

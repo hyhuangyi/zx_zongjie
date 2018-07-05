@@ -1,0 +1,22 @@
+									db2在线备份
+1）产看db2版本 :db2licm -l 
+
+2）如果版本DB2 v9及以前版本:
+   db2 update db cfg for ydwd using userexit on//启用用户出口　　
+   db2 update db cfg for ydwd using logretain on//启用归档日志　　
+   db2 update db cfg for ydwd using trackmod on//启用增量备份功能　
+
+  如果版本为DB2 v10:
+   db2 update db cfg for ydwd using LOGARCHMETH1 logretain
+
+
+ 注意事项:
+
+  变更这些归档模式参数后，会提示SQL1116N错误,DB2数据库处于backup pending状态，是不能马上连接上数据库的，必须要做脱机备份一次才行．
+
+　脱机备份命令例子: db2 backup db ydwd to f:/
+
+
+3）接下来测试在线备份：
+  
+   db2 backup db ydwd online to f:/

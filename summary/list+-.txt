@@ -1,0 +1,58 @@
+﻿
+    public static void main(String[] args) {
+//        List<String> l1 = new ArrayList<String>();
+//        String[] ll1 = new String[]{"2017-04","2017-05","2017-06","2017-07","2017-08","2017-09","2017-10"};
+//        for (String string : ll1 ) {
+//           l1.add(string);
+//        }
+//        List<String> l2 = new ArrayList<String>();
+//        String[] ll2 = new String[]{"2017-06","2017-07","2017-08"};
+//        for (String string : ll2 ) {
+//            l2.add(string);
+//        }
+//        String[] ll3 = new String[]{"2017-02","2017-03","2017-04","2017-05","2017-06","2017-07","2017-08"};
+//        List<String> l3 = new ArrayList<String>();
+//        for (String string : ll3 ) {
+//            l3.add(string);
+//        }
+//        String[] ll4 = new String[]{"2016-12","2017-01","2017-02","2017-03","2017-04","2017-05","2017-06","2017-07","2017-08","2017-09","2017-10","2017-11","2017-12"};
+//        List<String> l4 = new ArrayList<String>();
+//        for (String string : ll4 ) {
+//            l4.add(string);
+//        }
+//        List<String> temp = new ArrayList<String>();
+//        temp.addAll(l1);
+//        temp.addAll(l3);
+//
+//        System.out.print("需要加的");
+//        temp.removeAll(l1);
+//        for (String string : temp ) {
+//            System.out.print( " | " + string);
+//        }
+//        System.out.println("");
+//        List<String> temp2 = new ArrayList<String>();
+//        temp2.addAll(l1);
+//        temp2.addAll(l3);
+//
+//        System.out.print("需要减的");
+//        temp2.removeAll(l3);
+//        for (String string : temp2 ) {
+//            System.out.print( " | " + string);
+//        }
+//
+
+        Calendar c1 = Calendar.getInstance();
+        c1.set(Integer.parseInt("2017"), Integer.parseInt("8") - 1, 1);
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Integer.parseInt("2018"), Integer.parseInt("4") - 1, 1);
+        int result = 0;
+        int i = c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH) + 1;
+        int month = (c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR)) * 12;
+        result = Math.abs(month + i);
+        System.out.println(result);
+        System.out.println(DateUtil.format(c1.getTime(), "yyyy-MM"));
+        for (int j = 1; j < result; j++) {
+            c1.add(Calendar.MONTH, 1);
+            System.out.println(DateUtil.format(c1.getTime(), "yyyy-MM"));
+        }
+    }

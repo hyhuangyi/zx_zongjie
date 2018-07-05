@@ -1,0 +1,11 @@
+                                                    docker容器技术
+
+1.linux下docker安装
+    
+ 参见：https://www.cnblogs.com/rookie404/p/5965518.html
+
+2.docker images  
+
+  docker ps 
+  
+  docker run

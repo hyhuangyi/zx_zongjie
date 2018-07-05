@@ -1,0 +1,89 @@
+                            微服务的入门级微框架-->>SpringBoot
+
+
+>spring-boot项目启动方式有3种：
+ 1.通过代码编辑器工具启动
+ 2.通过命令启动，在项目所在目录下输入命令：mvn spring-boot:run启动
+ 3.java -jar target/xxx.jar --spring.profiles.active=prod 带配置参数启动项目
+
+>配置
+ application.properties
+ application.yml 推荐使用 简便
+
+
+>springBoot配置mybatis
+1.可以直接在配置中写
+
+spring:
+  datasource:
+    url: jdbc:db2://127.0.0.1:50000/ydwd
+    username: db2admin
+    password: 123456
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+
+  mybatis:
+    mapper-locations: classpath*:mapper/*Mapper.xml
+    type-aliases-package: cn.entity
+    config-location: classpath:mybatis-config.xml
+
+2.用Java代码 @Bean配置dataSource(url,driver,username,password)
+ 和 sqlSessionFactory(dataSource,mybatis-config.xml,cn.entity,/mapper.**.xml)
+
+注意点：启动类SpringBootApplication 要写在根目录下，不然无法扫描到注册的类注，导致无法注入bean;( SpringBoot主配置类只会扫描自己所在的包及其子包下面 )
+			
+        打成war部署到外部tomcat，要排除自带tomcat依赖，只能出现一个main入口;
+	
+
+>springBoot配置pageHelper
+
+1.添加依赖 
+ 	<dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.2</version>
+        </dependency> 
+
+2.使用
+
+ 网络上很多文章都会说需要在application.properties进行配置
+ 其实完全不需要，默认的设置就已经满足大部分需要了
+
+ PageHelper.startPage(pageNum,pageSize);
+
+下一行紧跟查询语句，不可以写其他的，否则没有效果。
+List list=service.getList();
+
+这样只起到了分页效果，对总页面数之类的没有详细信息
+如果对页面数量等有需求，则需要加上下面这行
+
+PageInfo<T> pageInfo = new PageInfo<>(list);
+
+
+
+
+
+>热部署
+1. Java热部署与热加载联系
+    *不重启服务器编译/部署项目
+    *基于Java的类加载器实现
+
+2. 热部署与热加载的区别
+    
+   1）部署方式
+     *热部署在服务器运行时重新部署项目
+     *热加载在运行时重新加载class
+    
+   2）实现原理
+     *热部署直接重新加载整个应用
+     *热加载在运行时重新加载class
+
+   3)使用场景
+     *热部署更多的实在生产环境使用
+     *热加载则更多的是在开发环境
+
+
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>

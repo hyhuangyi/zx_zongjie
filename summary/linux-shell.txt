@@ -1,0 +1,109 @@
+
+linux中shell变量含义解释
+
+$0  shell的命令本身(包括完整路径)  
+$1到$9 数字表示shell 的第几个参数   
+$# 传递到脚本的参数个数  
+$$ 脚本运行的ID号  
+$! 后台运行的最后一个进程的ID号  
+$* 
+所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。 
+$@ 
+所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数 
+$- 显示shell使用的当前选项。  
+$? 显示最后命令的执行状况。0表示没有错误。 
+
+举例：
+
+[wangpl@l bin]$ ./test.sh  p1 p2  
+$0 is { ./test.sh }  
+$1 is { p1 }  
+$2 is { p2 }  
+$* is { p1 p2 }  
+$@ is { p1}{ p2 }  
+$# is { 2 }  
+$! is {  }  
+$$ is { 25643 }  
+$? is { 0 }
+
+
+/******************************************************************脚本获取时间*****************************************************************************/
+
+通过shell获取当前8位日期，并赋给变量，并且使用变量作为文件名，建立文件夹
+
+date=`date +%Y%m%d`
+mkdir ${ls_date}
+
+获取日期注意事项：date +%Y%m%d 这个字符串是被英文状态下的ESC下面那个键
+
+获取变量注意事项：必须有$与{变量名}组成
+
+
+/******************************************************************备份最近3天的数据***************************************************************************/
+#!/bin/sh
+
+##todat's date
+date=`date "+%Y-%m-%d"`
+
+##three days ago's date
+date1=`date -d -3days "+%Y-%m-%d"`
+
+filepath=/home/backup/${date}
+
+filepath1=/home/backup/${date1}
+
+##remove 3days ago's file
+if [ -d "$filepath1" ]; then
+  echo "remove ${filepath1}">>${date}.log
+  rm -rf ${filepath1}
+fi
+
+##create today's file
+if [ ! -d "${filepath}" ]; then
+   echo "mkdir backup file by date">>${date}.log
+   mkdir ${filepath}
+fi
+
+chmod 777 -R ${filepath}
+
+##backup on line
+su - db2admin -c "db2 backup db hmnd online to ${filepath}">>${date}.log
+
+exit 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

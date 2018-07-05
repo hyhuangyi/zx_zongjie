@@ -1,0 +1,258 @@
+准备环节：
+
+主、从服务器 操作系统、mysql版本必须一致
+
+一、环境
+
+        主机：
+
+                   master操作系统：centos 5.5  64位
+
+                   IP：192.168.3.28
+
+                   MySQL版本：5.5.17
+
+         从机：         
+
+     slave操作系统：centos 5.5  64位
+
+                   IP：192.168.3.108
+
+                   MySQL版本：5.7.17
+
+二、master机和slave机的相关配置
+
+1、创建一个复制用户，具有replication slave 权限。
+mysql>grant replication slave on *.* to ‘wxl’@’192.168.3.108′ identified by ‘123456’
+
+2、修改master机器中mysql配置文件my.cnf，该文件在/etc目录下
+如果/etc/目录下没有my.cnf配置文件，请到/usr/share/mysql/找到my-medium*.cnf文件，拷贝到/etc/并改名为my.cnf
+命令如：# cp /usr/share/mysql/my-medium.cnf　/etc/my.cnf
+
+在[mysqld]配置段添加如下字段
+log-bin         = mysql-bin 
+log-bin-index   = mysql-bin.index
+binlog_format   = row
+server-id       = 38
+sync-binlog     = 1
+character-set-server = utf8
+说明：
+log-bin――设置二进制日志文件的基本名；
+log-bin-index设置二进制日志索引文件名。
+binlog_format――控制二进制日志格式，进而控制了复制类型，三个可选值，STATEMENT：语句复制，类似Oracle的逻辑DG；
+								   ROW：行复制，类似Oracle的物理DG；
+								   MIXED：混和复制，默认选项。为避免出现主从数据不一致，建议将其修改为ROW。
+server-id――为服务器设置唯一ID，默认为1，推荐取IP最后部分；
+sync-binlog――默认为0，为保证不会丢失数据，需设置为1，用于强制每次提交事务时，同步二进制日志到磁盘上。
+注：这几个参数是必须的，其他更多参数请参考相关文档
+
+3、重启master机的mysql服务：service mysqld restart
+    若Master库可以停机，则可直接拷贝所有数据库文件；若Master库是在线生产库，不能停机，则可采用多种方法对其进行完全备份，最好采用mysqldump，因为它对所有存储引擎均可使用。
+――为了获取一个一致性的快照，需对所有表设置读锁
+mysql> flush tables with read lock;
+Query OK, 0 rows affected (0.00 sec)
+――获取二进制日志的偏移量
+mysql> show master status;
++------------------+----------+--------------+------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
++------------------+----------+--------------+------------------+
+| mysql-bin.000003 |      107 |              |                  |
++------------------+----------+--------------+------------------+
+1 row in set (0.00 sec)
+
+――备份数据库
+对于事务性引擎（如：InnoDB），可使用--single-transaction参数获取一个一致性快照。
+# mysqldump -uroot -proot123 --all-database -e --single-transaction --flush-logs --max_allowed_packet=1048576 --net_buffer_length=16384>/data/all_db.sql
+
+对于MyISAM引擎，或多引擎混合的数据库，可使用-l参数锁定表，获取一致性备份
+# mysqldump -uroot --all-database -e -l --flush-logs --max_allowed_packet=1048576 --net_buffer_length=16384>/data/all_db.sql
+
+注：因为我们提前使用flush tables with read lock命令给所有表加了读锁，所以此处也不必使用-l参数再加锁。
+
+――备份完成后，将备份文件拷贝到Slave端
+# scp all_db.sql root@192.168.3.108:/data/
+
+――恢复Master库的写操作
+mysql> unlock tables;
+Query OK, 0 rows affected (0.00 sec)
+
+其实mysqldump还提供了一个--master-data参数，备份文件中包含了change master to语句，为了清晰了解主从复制的过程，我们不采用这个参数。
+
+二、从服务器
+
+1、编辑my.cnf文件 在[mysqld]组添加以下设置
+
+log-bin             = /data/mysql/mysql-bin
+binlog_format       = row
+log-slave-updates   = 1
+server-id           = 108
+relay-log           = mysql-relay-bin
+relay-log-index     = mysql-relay-bin.index
+read-only           = 1
+slave_net_timeout   ＝10
+Replicate_Do_DB     =DB  需要同步的数据库
+说明：
+1）relay-log――设置中继日志文件基本名；relay-log-index设置中继日志索引文件名。
+2）read-only――设置Slave为只读，但具有super权限的用户仍然可写。
+3）log-slave-updates――该参数用来控制Slave上的更新是否写入二进制日志，默认为0；若Slave只作为从服务器，则不必启用；若Slave作为其他服务器的Master，则需启用，启用时需和log-bin、binlog-format一起使用，这样Slave从主库读取日志并重做，然后记录到自己的二进制日志中。
+4）slave_net_timeout――设置网络超时时间，即多长时间测试一下主从是否连接，默认为3600秒，即1小时，这个值在生产环境过大，我们将其修改为10秒，即若主从中断10秒，则触发重新连接动作。
+
+2、恢复slave
+将Master库的备份恢复到Slave库，方法比较简单，直接执行即可。
+# mysql -uroot -proot123 </data/all_db.sql
+
+说明：skip-slave-start作用是启动从库但不立即启动从库的复制进程，以便对从库进行进一步的设置。
+
+2、启动从数据库
+service mysql restart
+
+3、对从数据库进行相应设置
+#如果出现出现这个错误: ERROR 1201 (HY000): Could not initialize master!需停止slave进程
+mysql> slave stop;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+mysql> reset slave;
+Query OK, 0 rows affected,(0.00 sec)
+
+mysql> change master to
+    -> master_host='192.168.3.28',
+    -> master_user='wxl',
+    -> master_password='123456',
+    -> master_log_file='mysql-bin.000003',
+    -> master_log_pos=107;
+Query OK, 0 rows affected (0.01 sec)
+
+4、启动从服务器slave线程
+mysql> start slave;
+Query OK, 0 rows affected (0.01 sec)
+
+执行show processlist命令显示以下进程:
+mysql> show processlist \G
+*************************** 1. row ***************************
+     Id: 2
+   User: root
+   Host: localhost
+     db: NULL
+Command: Query
+   Time: 0
+  State: NULL
+   Info: show processlist
+*************************** 2. row ***************************
+     Id: 3
+   User: system user
+   Host: 
+     db: NULL
+Command: Connect
+   Time: 21
+  State: Waiting for master to send event
+   Info: NULL
+*************************** 3. row ***************************
+     Id: 4
+   User: system user
+   Host: 
+     db: NULL
+Command: Connect
+   Time: 21
+  State: Slave has read all relay log; waiting for the slave I/O thread to update it
+   Info: NULL
+3 rows in set (0.00 sec)
+
+5、查看slave线程状态
+mysql> show slave status \G
+*************************** 1. row ***************************
+               Slave_IO_State: Waiting for master to send event
+                  Master_Host: 192.168.3.28
+                  Master_User: wxl
+                  Master_Port: 3306
+                Connect_Retry: 60
+              Master_Log_File: mysql-bin.000009
+          Read_Master_Log_Pos: 107
+               Relay_Log_File: mysql-relay-bin.000014
+                Relay_Log_Pos: 253
+        Relay_Master_Log_File: mysql-bin.000009
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB: 
+          Replicate_Ignore_DB: 
+           Replicate_Do_Table: 
+       Replicate_Ignore_Table: 
+      Replicate_Wild_Do_Table: 
+  Replicate_Wild_Ignore_Table: 
+                   Last_Errno: 0
+                   Last_Error: 
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 107
+              Relay_Log_Space: 452
+              Until_Condition: None
+               Until_Log_File: 
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File: 
+           Master_SSL_CA_Path: 
+              Master_SSL_Cert: 
+            Master_SSL_Cipher: 
+               Master_SSL_Key: 
+        Seconds_Behind_Master: 0
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 0
+                Last_IO_Error: 
+               Last_SQL_Errno: 0
+               Last_SQL_Error: 
+  Replicate_Ignore_Server_Ids: 
+             Master_Server_Id: 28
+1 row in set (0.00 sec)
+说明：
+Slave_IO_Running――此进程负责从Slave从Master上读取binlog日志，并写入Slave上的中继日志。
+Slave_SQL_Running――此进程负责读取并执行中继日志中的binlog日志。
+这两个进程的状态需全部为YES，只要有一个为NO，则复制就会停止。
+当Slave中Relay_Master_Log_File和Master_Log_File相同且Read_Master_Log_Pos和Exec_Master_Log_Pos完全相同时，则表明Slave和Master处于完全同步的状态。
+
+三、测试
+1、在master库创建一个测试表，并插入数据；
+mysql> create table test3 as select * from test2;
+
+2、然后在slave库查看是否正确复制
+mysql> use test;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| test1          |
+| test2          |
+| test3          |
++----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from test3;
++-----------+----------+
+| user_name | user_pwd |
++-----------+----------+
+| zhangsan  | 123456   |
+| lisi      | 123456   |
+| wangwu    | 123456   |
+| zhaoliu   | 123456   |
+| xiaoqian  | 123456   |
++-----------+----------+
+5 rows in set (0.00 sec)
+
+说明：
+1）可见从服务器已经正确复制了主服务器的数据，主从复制正确配置成功。
+2）但是read-only参数没有起作用，这是因为我们是用root账户登陆的，它具有super权限，换成普通账户test，即未授予super或all权限的账户，测试如下：
+mysql> use test
+Database changed
+mysql> select * from test;
++------+--------+
+| id   | name   |
++------+--------+
+|    6 | ffffff |
+|    7 | gggggg |
+|    8 | hhhhhh |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from test;
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+可见提示为只读，不能删除。
+
+	  
+

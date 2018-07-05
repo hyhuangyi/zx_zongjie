@@ -1,0 +1,60 @@
+						            webService
+
+idea如何创建webService文件参见：https://www.cnblogs.com/sekai/articles/5952735.html
+
+
+简单来说,WebService就是远程调用技术,也叫XML Web Service 
+
+         WebService是一种可以接收从Internet或者Intranet上的其它系统中传递过来的请求，轻量级的独立的通讯技术。
+
+         WebService是:通过SOAP在Web上提供的软件服务，使用WSDL文件进行说明，并通过UDDI进行注册。
+
+
+XML： (Extensible Markup Language)扩展型可标记语言。面向短期的临时数据处理、面向万维网络，是Soap的基础。
+
+Soap：(Simple Object Access Protocol)简单对象存取协议。是XML Web Service 的通信协议。当用户通过UDDI找到你的WSDL描述文档后，他通过可以SOAP调
+
+用你建立的Web服务中的一个或多个操作。SOAP是XML文档形式的调用方法的规范，它可以支持不同的底层接口，像HTTP(S)或者SMTP。
+
+WSDL：(Web Services Description Language) WSDL 文件是一个 XML 文档，用于说明一组 SOAP 消息以及如何交换这些消息。大多数情况下由软件自动生成和使用。 
+
+
+ *********************************************************wsimport 命令 生成客户端代码**********************************************************************
+
+1. -d <directory>
+   在指定的目录生成class文件
+
+2. -s <directory>
+   在指定的目录生成java源文件
+3. -p <pkg>
+   指定生成文件的包结构
+4. -keep
+   表示导出webservice的class文件时是否也导出源代码java文件
+
+例如：
+在F盘生成cn.example结构的源文件和.class文件  wsimport -d F: -p cn.example -keep http://localhost:8089/services/HelloWorld?wsdl
+
+在F盘生成cn.example结构的java源文件	     wsimport -s F: -p cn.example http://localhost:8089/services/HelloWorld?wsdl 
+
+注：除了调用服务接口还可以是本地的wsdl文件
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

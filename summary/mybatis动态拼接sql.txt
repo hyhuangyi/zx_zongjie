@@ -1,0 +1,28 @@
+public static void main(String...args){
+        Field[] fields = BaseCrmCustomer.class.getDeclaredFields();
+
+        for(Field v : fields){
+
+            String name = v.getName();
+            String propName = getPropName(name);
+
+            System.out.println("<isNotEmpty prepend=\",\" property=\""+name+"\">"
+                    +propName+"=#"+name+"#</isNotEmpty>"
+
+ 	    //System.out.println("<result property=\""+name+"\""+" column=\""+propName+"\"/>");
+            );
+
+        }
+    }
+
+    private static String getPropName(String name){
+        String propName = "";
+        for(char c : name.toCharArray()){
+            if(c >= 65 && c <=90 ){
+                propName += "_"+c;
+            }else{
+                propName += c;
+            }
+        }
+        return propName.toUpperCase();
+    }

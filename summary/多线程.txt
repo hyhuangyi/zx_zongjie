@@ -1,0 +1,15 @@
+								Thread
+
+
+					用多线程只有一个目的，那就是更好的利用cpu的资源
+
+1.创建线程的2种方式
+
+ 1）继承Thread类 myThread继承Thread         启动：  new myThread().start();
+
+ 2)实现Runnable接口 myThread实现Ruannable   启动：  new Thread(new MyThread()).start();
+
+ 一般用继承方式创建  优势：
+
+  1)避免Java单继承特性带来的局限性 2）多个线程共享一个Ruannale实例 资源共享
+  

@@ -1,0 +1,127 @@
+
+ctrl +c 停掉当前的程序   ||   tab 补全   || ctrl +d 退出
+
+chmod是更改文件的权限   chown是改文件的属主与属组  chgrp只是更改文件的属组。
+
+-rwxrw-r-- 1 syzhao eng     194 Jun 15  2012 check_crc.v  
+
+【-rwxrw-r--】代表文件类型和权限【1】表示i-node连接数 【syzhao】表示所有者 【eng】表示所属用户组 【194】表示大小
+【 Jun 15 2012】表示文件创建日期 【check_crc.v】表示文件名
+
+下面主要就【-rwxrw-r--】 来说一下，这里的-rwxrw-r--其实是分成四个部分的，第一个【-】是一部分代表文件类型，【-】代表是一般文件，【d】代表是目录，【l】代表链接文件。第二组【rwx】代表文件所有者权限，这3个字母从左到右分别表示该身份对文件权限【r】代表是否可读【w】代表是否可写【x】代表是否可执行。出现rwx相应的字母就表示有相应的权限，出现【-】则表示该用户对该文件无相应操作的权限。
+
+拿第三组和第四组来说，第三组是【rw-】表示该文件所属用户组eng的成员对该文件有【r】读取、【w】写的权限，没有【x】执行的权限。第四组代表Others对该文件的权限，权限根据字母可以看出，是可读不可写，不可执行，那么Others是哪些人呢？Others是除了root（root拥有最高权限）、文件所有者、文件所属用户组以外的所有用户。
+
+
+/**************************************************************LINUX命令*******************************************************************************/
+
+      1.df   ||  df -h  || df -a    //df命令用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为kb。以此获取硬盘空间信息 df -h以kb以上单位显示，可读性高
+
+      2.su - db2admin     //切换用户  su  后面不加用户是默认切到 root , su  是不改变当前变量 , su - 是改变为切换到用户的变量 ,也就是说su 只能获得root的执行权限，
+
+			   不能获得环境变量而su - 是切换到root并获得root的环境变量及执行权限。
+
+      3.find /home/data -name "was8.5"    // 查找目录
+
+      4.unzip hy.zip -d /home/data/hy    //解压
+
+      5.ping www.baidu.com  //ping ip  ||   telnet www.baidu.com 80  // ping端口   
+
+      6.ps -ef | grep websphere   //查找websphere进程   ps aux //另一种查看进程的方法  显示其他用户启动的进程（a）
+										       查看系统中属于自己的进程（x）
+										       启动这个进程的用户和它启动的时间（u）
+
+      7.kill -9 1234   //杀死进程1234
+
+      8.rm -i hy.txt  删除前询问（对文件有效）  ||    rm -f hy.txt  //强制删除（对文件有效）  ||  rm -v hy.txt //显示删除步骤
+   
+        rm -rf hy （强制删除该目录下的文件和文件夹  -r递归删除 f代表强制） 等等各种组合使用
+
+      9.cp -r hy yh  复制目录要加r（赋值hy到yh下） 
+
+      10.mv hy hmnd  当前目录下移动hy到hmnd下
+
+      11.cat readme.txt    cat readme.txt | more 分屏查看    cat readme.txt |less 分屏可上下翻页    //查看readme.txt
+
+      12.mkdir hy      ||     mkdir -p hy/hy 创建hy目录及其子目录hy
+
+      13.touch hy    创建空文件hy
+  
+      14.date 日期   cal 日历  who 显示用户信息  clear 清屏
+
+      15.cat /etc/passwd   ||   cat /etc/group      查看用户和组的信息
+
+      16.useradd hy  新增用户    passwd hy  修改密码      userdel -r hy 删除用户
+
+      17.tail 查看文件最后十行
+  
+      18.free 显示当前系统未使用的和已使用的内存数目，还可以显示被内核使用的内存缓冲区。
+
+      19.crontab 定时任务 crontab -l 查看所有定时任务  crontab -e 添加任务   * * * * * sh /home/banger/demo.sh 每隔一分钟执行一次demo.sh
+
+         查看定时任务进程 ps aux | grep cron
+
+  或  
+
+pgrep cron 或  ps -ef | grep cron
+
+      20.vi  i插入  esc 从编辑模式切换到命令模式  :w 保存 :q退出  :wq保存并退出
+
+      21.half  poweroff  shutdown -h now(root用户) 立刻关机  shutdown -h 10   10分钟后自动关机
+
+      22.tail -f /var/spool/mail/root    查看最近的crontab执行情况   tail -f /var/log/cron
+
+      23.alias 查看设置别名  alias ll='ls -lh' 设置别名
+
+      24.sudo sudo命令用来以其他身份来执行命令，预设的身份为root。在/etc/sudoers中设置了可执行sudo指令的用户
+
+      25.usermod -a -G sudo hy 添加hy用户到sudo用户组
+
+      26.du du会显示指定的目录或文件所占用的磁盘空间。 du -sh * 查看当前目录下所有文件大小
+
+      27.stderr / stdin / stdout 分别指向与标准错误流 / 标准输入流 / 标准输出流相关联的 FILE 对象。
+
+      28.直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+     
+     

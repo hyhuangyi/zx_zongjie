@@ -1,0 +1,29 @@
+<build>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>context.xml</include>
+            </includes>
+        </resource>
+
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>context.xml</exclude>
+            </excludes>
+        </resource>
+    </resources>
+</build>
+
+
+
+<filtering>true</filtering>表示可以覆盖真实值
+
+<include></include> 表示打包这些文件到classpath下
+<exclude></exclude> 表示除了这些文件打包到classpath下
+
+没有resource表示将src/main/resources下所有文件打包到classpath，需要特需处理的变量需要写
+

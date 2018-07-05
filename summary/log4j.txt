@@ -1,0 +1,72 @@
+
+
+/**********SpringMVC web项目整合log4j************/
+
+
+       1）级别这个知识点相对来说是最简单，他们就像开关一样，来决定哪些日志方法被调用，哪些不被调用
+
+       2）他们的大小关系是这样的——ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+
+       3）设置了对应的级别之后，日志框架就只调用大于等于这个级别的方法
+
+       4）Log4j建议只使用如右四个级别——DEBUG < INFO < WARN < ERROR
+
+1.首先弄到log4j的jar包，maven项目直接在pom.xml加入
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+
+
+2.在resources下加入log4j.properties
+
+
+3.在web.xml加入
+  
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:properties/log4j.properties</param-value>
+  </context-param>
+  <listener>
+    <listener-class>
+      org.springframework.web.util.Log4jConfigListener
+    </listener-class>
+  </listener>
+
+4.直接可以在class中使用了
+
+注意点:log4j的配置放在第一个，因为后续加载其他组件就要开始使用
+
+
+
+/**********SpringBoot web项目整合log4j************/
+
+1.排除spring boot对[spring-boot-starter-logging]的依赖，并增加依赖包[spring-boot-starter-log4j.jar]
+
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- log4j -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+            <version>1.3.8.RELEASE</version>
+        </dependency>
+
+2.增加log4j.properties配置
+
+3.在配置文件applicatiom.yml中指定日志位置
+
+ logging:
+   config: classpath:log4j.properties
+

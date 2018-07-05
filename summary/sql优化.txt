@@ -1,0 +1,86 @@
+1。你必须选择记录条数最少的表作为基础表.
+   (from 是从前往后检索的，所以要最少记录的表放在最前面)
+2。采用自下而上的顺序解析WHERE子句,根据这个原理,表之间的连接必须写在其他WHERE条件之前, 那些   可以过滤掉最大数量记录的条件必须写在WHERE子句的末尾。同时在链接的表中能过滤的就应该先进行过滤。
+  （where是从后往前检索，所以能过滤最多数据的条件应放到最后。）
+3。SELECT子句中避免使用 ‘ * ‘
+4。尽量多使用COMMIT
+5。计算记录条数时候，第一快：count(索引列)，第二快：cout(*)
+6。用Where子句替换HAVING子句
+7。通过内部函数提高SQL效率
+8。使用表的别名(Alias)
+9。用EXISTS替代IN
+10。用NOT EXISTS替代NOT IN
+11。用表连接替换EXISTS
+12。用索引提高效率
+13。避免在索引列上使用计算（此条包括在select后面  where后面等任何地方，因为在索引列上计算会导致索引失效）
+14。避免在索引列上使用NOT（在索引列使用not会导致索引失效）
+15。用>=替代>
+16。用UNION替换OR (适用于索引列)
+17。用IN来替换OR
+18。避免在索引列上使用IS NULL和IS NOT NULL
+19。总是使用索引的第一个列
+20。用UNION-ALL 替换UNION ( 如果有可能的话)
+21。ORDER BY 子句只在两种严格的条件下使用索引.
+22。避免改变索引列的类型
+23。需要当心的WHERE子句
+24。避免使用耗费资源的操作（带有DISTINCT,UNION,MINUS,INTERSECT,ORDER BY）
+
+
+
+CONVERT(varchar(100),ReleaseTime,20) like '%"+ dateStr+ "%' 
+
+
+
+http://192.168.0.44:8086/flash_shanxi/IndexExport.jsp?year=2012&month=4
+
+
+开-闭原则（OCP）:一个软件实体应当对扩展开放，对修改关闭。
+里氏代换原则（LSP）:一个软件实体如果使用的是一个基类的话，那么一定适用于其子类。
+依赖倒转原则（DIP）:要依赖于抽象，不要依赖于具体。
+接口隔离原则（ISP）:使用多个专门的接口比使用单一的总接口要好。
+合成/聚合复用原则（CARP）:要尽量使用合成/聚合，尽量不要使用继承。
+迪米特法则（LoD）:一个对象应当对其他对象有尽可能少的了解。
+
+
+
+报销系统：http://192.168.0.82/CWBX
+
+
+外网注册：http://192.168.0.44:8086/shanxi/outside/default.html
+
+
+http://192.168.0.27:8086/workflow/ActLogAction.do?actionType=query&instanceid=1364
+
+13146729089
+
+/TransactAction
+提交山西服务时注意外网 成交信息  按时间降序排列
+
+http://192.168.0.27:8086/flash_shanxi/IndexExport.jsp?year=2012&month=2
+
+
+C:\THSPlatform\tools\java
+
+有偿使用发起工作流：  action  startPaid
+
+"title=" + title + "&action=" + action + "&loginname=" + loginname + "&flowid=" + flowid + "&pkid=" + 
+pkid + "&linkman=" + linkman + "&linkphone=" + linkphone + "&so2sqquantity=" + so2sqquantity + 
+"&noxsqquantity=" + noxsqquantity + "&nh3sqquantity" + nh3sqquantity + "&codsqquantity" + codsqquantity
+ + "&so2hdquantity" + so2hdquantity + "&noxhdquantity" + noxhdquantity + "&nh3hdquantity" + nh3hdquantity 
+ + "&codhdquantity" + codhdquantity + "&so2perprice" + so2perprice + "&noxperprice" + noxperprice 
+ + "&nh3perprice" + nh3perprice + "&codperprice" + codperprice + "&so2totalprice" + so2totalprice 
+ + "&noxtotalprice" + noxtotalprice + "&nh3totalprice" + nh3totalprice + "&codtotalprice" + codtotalprice 
+ + "&totalallprice" + totalallprice + "&memo" + memo + "&entername=" + entername + "&enteraddress=" 
+ + enteraddress + "&tradename=" + tradename + "&code_trade=" + code_trade;
+退回的工作流从新提交：  action   passPaid"nid=" + nid + "&action=" + action + "&loginname=" + loginname + "&nextnodeid=" + nextnodeid + 
+"&pkid=" + pkid + "&linkman=" + linkman + "&linkphone=" + linkphone + "&so2sqquantity=" + so2sqquantity + 
+"&noxsqquantity=" + noxsqquantity + "&nh3sqquantity" + nh3sqquantity + "&codsqquantity" + codsqquantity +
+ "&so2hdquantity" + so2hdquantity + "&noxhdquantity" + noxhdquantity + "&nh3hdquantity" + nh3hdquantity + 
+ "&codhdquantity" + codhdquantity + "&so2perprice" + so2perprice + "&noxperprice" + noxperprice + 
+ "&nh3perprice" + nh3perprice + "&codperprice" + codperprice + "&so2totalprice" + so2totalprice + 
+ "&noxtotalprice" + noxtotalprice + "&nh3totalprice" + nh3totalprice + "&codtotalprice" + codtotalprice + 
+ "&totalallprice" + totalallprice + "&memo" + memo + "&entername=" + entername + 
+ "&enteraddress=" + enteraddress + "&tradename=" + tradename + "&code_trade=" + code_trade代丽欣  9:35:53修改两处， 一处是  flash项目中的页面，   一处是  平台中  workflow/workflow.jsp
+wrapper.java.classpath.1=../lib/wrapper.jar
+wrapper.java.classpath.2=../lib/aaa.jar
+wrapper.java.classpath.3=../lib/sqljdbc4.jar

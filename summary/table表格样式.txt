@@ -1,0 +1,65 @@
+
+							表格样式demo				
+
+table.dataintable {
+  margin-top:15px;
+  border-collapse:collapse;
+  border:1px solid #aaa;
+  width:100%;
+}
+table.dataintable th {
+  vertical-align:baseline;
+  padding:5px 15px 5px 6px;
+  background-color:#3F3F3F;
+  border:1px solid #3F3F3F;
+  text-align:left;
+  color:#fff;
+}
+table.dataintable td {
+  vertical-align:text-top;
+  padding:6px 15px 6px 6px;
+  border:1px solid #aaa;
+}
+table.dataintable tr:nth-child(odd) {
+  background-color:#F5F5F5;
+}
+table.dataintable tr:nth-child(even) {
+  background-color:#fff;
+}
+html代码
+
+<table class="dataintable">
+<tr>
+  <th>值</th>
+  <th>描述</th>
+</tr>
+<tr>
+  <td><i>outline-color</i></td>
+  <td>规定边框的颜色。</td>
+</tr>
+<tr>
+  <td><i>outline-style</i></td>
+  <td>规定边框的样式。</td>
+</tr>
+<tr>
+  <td><i>outline-width</i></td>
+  <td>规定边框的宽度。</td>
+</tr>
+<tr>
+  <td>inherit</td>
+  <td>规定应该从父元素继承 outline 属性的设置。</td>
+</tr>
+</table>
+
+
+代码解释：如何做到表格 TR 单双行颜色相间而不同？
+
+从效果图看到，表格 TR 单双行颜色相间而不同，这比整个表格同一颜色好看很多，若表格大又长时看起来就不会觉得那么累。关键代码如下：
+
+table.dataintable tr:nth-child(odd) {
+  background-color:#F5F5F5;
+}
+table.dataintable tr:nth-child(even) {
+  background-color:#fff;
+}
+代码里 odd 和 even 是定义单双行的样式，其中 odd 是单行，而 even 是双行。

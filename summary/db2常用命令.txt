@@ -1,0 +1,67 @@
+								DB2 常用命令小结
+
+1.进入操作命令：db2cmd
+
+2.列出所有数据库：db2 list db directory
+
+3.列出所有激活的数据库：db2 list active databases// db2 list application
+
+4.连接到数据库：db2 connect to 【db_name】
+
+例如：db2 connect to hmnd
+
+5.新建数据库：db2 create db 【db_name】  on 【path】
+ 
+例如：db2 create db hmnd on f:
+
+6.删除数据库：db2 drop db 【db_name】 
+
+例如：db2 drop db hmnd
+
+7.关闭所有应用连接 ：db2 force application all// db2stop force
+
+8.数据库备份：db2 backup database/db 【db_name】 to 【path】  
+
+例如：db2 backup db hmnd to f:
+
+9.数据库恢复：db2 restore database/db 【备份的数据库名】 from 【备份目录】 taken at 【时间戳】 into 【要恢复到的数据库名】
+
+例如：db2 restore db hmnd from f: taken at 20171125140427 into sample
+
+10.断开数据库连接：db2 connect reset
+
+11.用db2look命令生成表结构的DLL脚本 ： db2look -d 【db_name】 -i 【user_name】 -w 【password】 -a -e -o d:/db_ddl.sql
+
+例如：db2look -d hmnd -i db2admin -w 123456 -a -e -o f:/hy/hy.sql
+
+12.用db2move导出所有表的数据 .ifx文件： db2move 【db_name】 export -u 【user_name】 -p 【password】
+
+例如：db2move hmnd export -u db2admin -p 123456 存在问题：db2move import方式只能导入“普通”的表，如果表中存在自增长的IDENTITY列，
+那么使用db2move import时，会出错。这是因为，如果IDENTITY列创建表的时候都是定义成always的话，那么在导入数据的时候该列数据是不能被赋值的，
+而是应该由系统生成，使用db2move无法导入这样的表。对于这种含有IDENTITY列的表，只能使用db2 import指令来进行导入，
+
+13.export导出  db2 export to [path(eg..D:/TABLE_NAME.IXF)] of ixf select  *FROM 【table_name】;
+
+例如 db2 export to f:/hy.del of del select * from cd_city （db2 connect to 【db_name】 user【user_name】 using 【password】）
+
+14.import导入 	db2 load from [path(eg..d:/table_name.ixf)] of ixf replace into 【table_name】;
+
+		db2 import form [path(eg..d:/table_name.ixf)] of ixf insert into 【table_name】;
+
+		db2 load from [path(eg..d:/table_name.ixf)] of ixf insert into 【table_name】;
+
+15.执行脚本：db2 -tvf xx.sql
+
+db2 -tvf E:\hmydnd_Bak\exportData.sql
+
+16.mstsc 远程桌面
+
+17.DB2添加分配权限
+ 
+db2 grant dbadm,createtab,bindadd,connect,create_not_fenced_routine,implicit_schema,load,create_external_routine,quiesce_connect,secadm on database to user db2admin;
+
+18.查看db2数据库版本  db2level      db2licm -l  
+
+19.查看db2表空间状态  db2 list tablespaces show detail
+
+

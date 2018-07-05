@@ -1,0 +1,3 @@
+								TOMCAT
+
+1.war包部署：conf->server.xml <Host></Host>标签里添加<Context dobase="war包位置" path="/" reloadable="true"></Context>
