@@ -29,3 +29,7 @@
 
 
 名词解释： origin 远程仓库别名 git remote -v查看
+
+在 git 命令行里使用这一句，禁止自动转换换行符  git config --global core.autocrlf false
+
+		
