@@ -1,0 +1,64 @@
+
+					                                   dubbo配置	
+
+<?xml version="1.0" encoding="utf-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd "> 
+
+<!-- 提供方应用信息，用于计算依赖关系 --> 
+<dubbo:application name="provider" /> 
+<!-- 使用zookeeper注册中心暴露服务地址 --> 
+<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" /> 
+<!-- 用dubbo协议在29014端口暴露服务 --> 
+<dubbo:protocol name="dubbo" port="29014" /> 
+<!-- 声明需要暴露的服务接口 -->
+<dubbo:service interface="per.lx.service.UserService" ref="userService" /> 
+<!-- 具体的实现bean --> 
+<bean id="userService" class="per.lx.service.impl.UserServiceImpl" /> 
+
+</beans>
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"> 
+
+<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 --> 
+<dubbo:application name="consumer" />
+<!-- 使用zookeeper广播注册中心暴露发现服务地址 --> 
+<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" /> 
+<!-- 生成远程服务代理，可以和本地bean一样使用userService -->
+<dubbo:reference id="userService" interface="per.lx.service.UserService" /> 
+
+</beans>
+
+
+
+
+Dubbo常用配置介绍
+
+<dubbo:service/> 服务配置，用于暴露服务。
+<dubbo:reference/> 引用配置，用于创建一个远程服务代理
+<dubbo:protocol/> 协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+<dubbo:application/> 应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+<dubbo:module/> 模块配置，用于配置当前模块信息，可选。
+<dubbo:registry/> 注册中心配置，用于配置连接注册中心相关信息。
+<dubbo:monitor/> 监控中心配置，用于配置连接监控中心相关信息，可选。
+<dubbo:provider/> 提供方的缺省值，当ProtocolConfig和ServiceConfig某属性没有配置时，采用此缺省值，可选。
+<dubbo:consumer/> 消费方缺省配置，当ReferenceConfig某属性没有配置时，采用此缺省值，可选。
+<dubbo:method/> 方法配置，用于ServiceConfig和ReferenceConfig指定方法级的配置信息。
+<dubbo:argument/> 用于指定方法参数配置。
+
+
+dubbo是分布式服务框架。
+
+
+
+分布式系统是由一组通过网络进行通信、为了完成共同的任务而协调工作的计算机节点组成的系统。分布式系统的出现是为了用廉价的、普通的机器完成单个计算机无法完成的计算、存储任
+务。其目的是利用更多的机器，处理更多的数据。
+
+从进程角度看，两个程序分别运行在两个台主机的进程上，它们相互协作最终完成同一个服务（或者功能），那么理论上这两个程序所组成的系统，也可以称作是“分布式系统”。
+
+当然，这个两个程序可以是不同的程序，也可以是相同的程序。如果是相同的程序，我们又可以称之为“集群”。所谓集群，就是将相同的程序，通过不断横向扩展，以提高服务能力的方式
+
+
