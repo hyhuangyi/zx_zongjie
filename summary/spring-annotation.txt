@@ -40,7 +40,9 @@ SpringÊôÓÚµÚÈı·½µÄ£¬J2EEÊÇJava×Ô¼ºµÄ¶«Î÷£¬Òò´Ë£¬½¨ÒéÊ¹ÓÃ@Resource×¢½â£¬ÒÔ¼õÉÙ´úÂ
 @ModelAttribute  Èç¹û°Ñ@ModelAttribute·ÅÔÚ·½·¨µÄ×¢½âÉÏÊ±£¬´ú±íµÄÊÇ£º¸ÃControllerµÄËùÓĞ·½·¨ÔÚµ÷ÓÃÇ°£¬ÏÈÖ´ĞĞ´Ë@ModelAttribute·½·¨¡£
 
                  Èç¹û°Ñ@ModelAttributeÓÃÔÚ·½·¨²ÎÊıÉÏ ´ÓForm±íµ¥»òURL²ÎÊıÖĞ»ñÈ¡£¨Êµ¼ÊÉÏ£¬²»×ö´Ë×¢ÊÍÒ²ÄÜÄÃµ½user¶ÔÏó£© ×¢ÒâÕâÊ±ºòÕâ¸öÊµÌåÀàÒ»¶¨ÒªÓĞÃ»ÓĞ²ÎÊıµÄ¹¹Ôìº¯Êı¡£
-
+		 
+		 Èç¹û°Ñ@ModelAttributeºÍ@RequestMapping Í¬Ê±·ÅÔÚ·½·¨ÉÏ£¬·µ»ØµÄÊÓÍ¼ÊÇÇëÇóÂ·¾¶(@RequestMappingµÄÖµ£¬°üº¬ControllerÉÏµÄ@RequestMappingµÄÖµ),·½·¨·µ»ØÖµÎª
+		 ·ÅÈëModelÖĞµÄÖµ¡£
 
 @SessionAttributes  Ö»ÄÜÔÚÀàÉÏÊ¹ÓÃ£¬²»ÄÜÔÚ·½·¨ÉÏÊ¹ÓÃ¡£ Spring ÔÊĞíÎÒÃÇÓĞÑ¡ÔñµØÖ¸¶¨ ModelMap ÖĞµÄÄÄĞ©ÊôĞÔĞèÒª×ª´æµ½ session ÖĞ£¬
 
