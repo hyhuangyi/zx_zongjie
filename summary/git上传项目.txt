@@ -1,4 +1,5 @@
                                                    				上传项目到git
+参考：https://blog.csdn.net/zamamiro/article/details/70172900
 
 方法一  先在个人账户上new repository新建个版本库(https://github.com/hyhuangyi/hy.git)，再在自己本地git clone https://github.com/hyhuangyi/hy.git 下来把项目上传到上面。
 
@@ -32,4 +33,10 @@
 
 在 git 命令行里使用这一句，禁止自动转换换行符  git config --global core.autocrlf false
 
+
+git 本地建立一个远程服务
+
+用git init --bare 而不要用git init git init --bare方法创建一个所谓的裸仓库，之所以叫裸仓库是因为这个仓库只保存git历史提交的版本信息，而不允许用户在上面进行各种git操作，如果你硬要操作的话，只会得到下面的错误（”This operation must be run in a work tree”）这个就是最好把远端仓库初始化成bare仓库的原因。
+
+参考：https://www.zhaokeli.com/article/8023.html
 		
