@@ -29,3 +29,10 @@
 9.db2分页     SELECT *FROM(SELECT A.*,ROW_NUMBER() OVER(ORDER BY LOAN_INFO_ID) AS ROWID FROM(SELECT *FROM LN_LOAN_INFO)A) WHERE ROWID BETWEEN 1 AND 5
 
 	      SELECT *FROM(SELECT A.*,ROW_NUMBER() OVER(ORDER BY LOAN_INFO_ID)AS ROWID FROM LN_LOAN_INFO AS A)B WHERE B.ROWID<10 
+
+10.通配符转义 SELECT *FROM S_USER  where  S_USER.ENNAME like '%/%%'  ESCAPE '/' 如果想要查带通配字符的字符串，则通配字符需要转义  (查询带%的字符串)
+
+11.mybatis中$和#    #会预编译，而$不会，通常在字段设置值的时候，我们要使用#，假如我们的sql表名是一个变量tab_name 则用$ 
+
+12 like问题  select *from user where name like '%hy%' (1) name like concat(concat('%',#{name}),'%')   (2)name like concat('%',#{name},'%')  (3)name like '%${name}%'    	    
+             oracle,db2只支持2个连接，mysql支持多个
