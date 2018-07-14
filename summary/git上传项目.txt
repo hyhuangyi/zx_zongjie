@@ -35,13 +35,38 @@
 在 git 命令行里使用这一句，禁止自动转换换行符  git config --global core.autocrlf false
 
 
-git 本地建立一个远程服务
+git 本地建立一个远程服务  使用git init 服务端需要执行 git config receive.denyCurrentBranch ignore这是由于git默认拒绝了push操作，需要进行设置
+[receive]
+denyCurrentBranch = ignore
 
-用git init --bare 而不要用git init git init --bare方法创建一个所谓的裸仓库，之所以叫裸仓库是因为这个仓库只保存git历史提交的版本信息，而不允许用户在上面进行各种git操作，如果你硬要操作的话，只会得到下面的错误（”This operation must be run in a work tree”）这个就是最好把远端仓库初始化成bare仓库的原因。
+
+用git init --bare 而不要用git init   git init --bare方法创建一个所谓的裸仓库，之所以叫裸仓库是因为这个仓库只保存git历史提交的版本信息，而不允许用户在上面进行各种git操作，如果你硬要操作的话，只会得到下面的错误（”This operation must be run in a work tree”）这个就是最好把远端仓库初始化成bare仓库的原因。
 
 参考：https://www.zhaokeli.com/article/8023.html
 
 
 
+*******************************************************************git分支操作*****************************************************************************************
 
+在当前的分支下,修改代码不会影响master分支,我们想提交时,代码提交步骤add添加文件commit提交然后需要将自己的分支代码”合并”到master分支即可
+
+git branch        查看当前分支 
+
+git branch hy     创建hy分支 
+ 
+git checkout hy   切换到hy分支
+
+(git checkout -b hy 创建并切换到hy分支  即上面步骤合并）
+
+然后在hy分支上操作add  commit
+
+git checkout master  切换到主分支
+ 
+git merge hy         合并hy分支到当前分支（master）
+
+git branch -d hy     合并没问题后就可以删除hy分支
+
+git log              查询提交日志
+
+git push             推送到远端
 		
