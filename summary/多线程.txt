@@ -9,7 +9,7 @@
 
  2)实现Runnable接口 myThread实现Ruannable   启动：  new Thread(new MyThread()).start();
 
- 一般用继承方式创建  优势：
+ 一般用实现Runnable接口方式创建  优势：
 
   1)避免Java单继承特性带来的局限性 2）多个线程共享一个Ruannale实例 资源共享
   
