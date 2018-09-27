@@ -45,3 +45,8 @@ datadir=E:\mysql-5.6.41-winx64\data
 10.mysql修改密码  mysqladmin -u root -p password
 
 11.注意点，my.ini默认在根目录去找，不要写在bin目录下
+
+12.针对连接远程服务器上的mysql报错:1130-host ... is not allowed to connect to this MySql server 执行下面命令即可:
+
+   GRANT   ALL   PRIVILEGES   ON   *.*   TO   'root'@'%' IDENTIFIED BY '111111'  WITH   GRANT   OPTION;
+   FLUSH   PRIVILEGES;
