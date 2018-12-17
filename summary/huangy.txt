@@ -1,0 +1,27 @@
+12-1-1303
+1252983+50000=1302983-5000=1297983
+杭州分行武林支行  6214835896135132 
+
+
+#打包
+clean install -Dmaven.test.skip=true
+
+
+case when  then  when   then ... else  end
+
+SELECT date('2018-11-11 11:11:11');  2018-11-11 
+
+SELECT DATE_FORMAT('2018-11-11 11:11:11','%Y-%m-%d');  格式化日期 结果 为2018-11-11
+
+SELECT CURDATE();  获取当前时间 格式为yyyy-MM-dd  eg:2018-11-11
+
+
+SELECT DATEDIFF('2018-11-12','2018-11-11'); 计算日期差 结果为1
+
+SELECT DATE_SUB(CURDATE(),INTERVAL 1 day); 当前时间为2018-11-11 结果为2018-11-10 
+
+list里不要建立循环操作数据库 -----可以批量操作  查询的话可以批量查询存map里 map.put(id,object)，然后循环list取map数据 map.get(list.id)
+
+
+
+ 
