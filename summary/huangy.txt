@@ -24,6 +24,13 @@
 
 9.list里不要建立循环操作数据库 -----可以批量操作  查询的话可以批量查询存map里 map.put(id,object)，然后循环list取map数据 map.get(list.id)
 
+10.Null 值不会等于或者不等于任何值，甚至不能与其自身作比较。因此，不能使用 = 或 != 来测试某一列的值是否为 Null。判断一行是否含有 Null，必须使用 IS Null。你也可以使用 IS NOT Null 来找到给定列的值不是 Null 的所有行。
 
+11.通配符转义 SELECT *FROM S_USER  where  S_USER.ENNAME like '%/%%'  ESCAPE '/' 如果想要查带通配字符的字符串，则通配字符需要转义  (查询带%的字符串)
+
+12.mybatis中$和#    #会预编译，而$不会，通常在字段设置值的时候，我们要使用#，假如我们的sql表名是一个变量tab_name 则用$ 
+
+13. like问题  select *from user where name like '%hy%' (1) name like concat(concat('%',#{name}),'%')   (2)name like concat('%',#{name},'%')  (3)name like '%${name}%'    	    
+             oracle,db2只支持2个连接，mysql支持多个
 
  
