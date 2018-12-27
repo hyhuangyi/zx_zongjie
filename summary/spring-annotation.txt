@@ -109,7 +109,7 @@ Java代码
 
 
 
-
+Controller 接受list 对象 1）用@RequestBody   2）将list封装到对象里
 
 
 

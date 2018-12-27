@@ -25,3 +25,4 @@
     }
 
 
+对list里的对象校验在list上加@Valid
