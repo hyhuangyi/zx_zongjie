@@ -1,0 +1,62 @@
+
+1.常用命令
+
+start nginx                 开启nginx
+
+
+nginx -s stop             快速关闭Nginx，可能不保存相关信息，并迅速终止web服务。
+
+nginx -s quit             平稳关闭Nginx，保存相关信息，有安排的结束web服务。
+
+nginx -s reload          因改变了Nginx相关配置，需要重新加载配置而重载。
+
+nginx -s reopen         重新打开日志文件。
+
+nginx -c filename      为 Nginx 指定一个配置文件，来代替缺省的。
+
+nginx -t                    不运行，而仅仅测试配置文件。nginx 将检查配置文件的语法的正确性，并尝试打开配置文件中所引用到的文件。
+
+nginx -v                    显示 nginx 的版本。
+
+
+2.更改host
+ 
+在C:\Windows\System32\drivers\etc目录下的host文件中添加一条DNS记录：127.0.0.1  zx.hy.com，这样我们通过zx.hy.com去访问的时候电脑才可以解析
+
+3.配置nginx.conf
+
+upstream  server1{
+        server localhost:9888 weight=1;
+    }
+
+    server {
+        listen       80;
+        #配置主机名等
+        server_name  zx.hy.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            #root   html;
+            #index  index.html index.htm;
+            #转发到自己设置的负载均衡服务器数
+            proxy_pass http://server1;
+            proxy_redirect default;
+            #设置主机头和客户端真实地址，以便服务器获取客户端真实IP
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        #开启日志监听
+        location /status {
+            stub_status on;
+            access_log off;
+        }
+
+		error_page   500 502 503 504  /50x.html;
+				location = /50x.html {
+				   root   html;
+				}
+		}
