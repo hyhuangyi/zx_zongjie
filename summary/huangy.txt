@@ -2,36 +2,45 @@
 1252983+50000=1302983-5000=1297983
 杭州分行武林支行  6214835896135132 
 
+1.WHERE 子句会比 SELECT 子句先执行   FROM 子句会先于 WHERE 子句执行  
 
-#打包
-1.clean install -Dmaven.test.skip=true
+2.创建视图 create view v as select id,name from user
 
+3. INNER JOIN（( 简写join) 内连接或等值连接  获取两个表中字段匹配关系的记录 
+   LEFT JOIN（左连接）：获取左表所有记录，即使右表没有对应匹配的记录。 left outer join 就是left join
+   RIGHT JOIN（右连接）： 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。
 
-2.case when  then  when   then ... else  end
+4. SQL 中，TRUE or NULL 的运算结果是 TRUE，但 FALSE or NULL 的运算结果却是 Null ！一
+旦混入了 Null，结果就会一直保持为 Null 。必须谨记，当使用 IN 谓词以及当执行 OR 逻辑运算的时候，你要想到是否
+会涉及 Null 值。
 
-3.SELECT date('2018-11-11 11:11:11');  2018-11-11 
+5.在不破坏当前结果集的情况下，标量子查询是为现有查询语句添加额外数据的好办
+法。当使用标量子查询时，必须确保它们返回的是标量值（单值）。如果 SELECT 列表里的
+子查询返回多行，那么查询将会出错。
 
-4.SELECT DATE_FORMAT('2018-11-11 11:11:11','%Y-%m-%d');  格式化日期 结果 为2018-11-11
+6.nohup java -server -Xms256m -Xmx256m -Xmn256m -jar xx.jar &
 
-5.SELECT CURDATE();  获取当前时间 格式为yyyy-MM-dd  eg:2018-11-11
+7.通配符转义 SELECT *FROM S_USER  where  S_USER.ENNAME like '%/%%'  ESCAPE '/' 如果想要查带通配字符的字符串，则通配字符需要转义  (查询带%的字符串)
 
+8.公钥（Public Key）与私钥（Private Key）是通过一种算法得到的一个密钥对（即一个公钥和一个私钥），公钥是密钥对中公开的部分，私钥则是非公开的部分。公钥通常用于加密会话密钥、验证数字签名，或加密可以用相应的私钥解密的数据。
+公钥和私钥是成对出现的，我们会保留有自己的私钥，同时公开自己的公钥。一个很典型的例子是GitHub的使用。我们通常不会使用账号密码来管理自己的项目，而是通过将自己的公钥上传到GitHub的里，而自己的电脑里则保留有相对应的私钥，从而达到免密码提交代码。
+当然私钥和公钥对是唯一的，而你也可以随时重新生成自己的公钥和私钥密码对，但当你从新生成密钥对并覆盖了就有的密钥时，你之前的公钥就作废了。
+简单来说就是：公钥加密，私钥解密，私钥签名，公钥验证。
 
-6.SELECT DATEDIFF('2018-11-12','2018-11-11'); 计算日期差 结果为1
-  SELECT TO_DAYS(NOW())-TO_DAYS('2018-12-25')
+9.当你在类中定义变量时，在其前面加上final关键字，那便是说，这个变量一旦被初始化便不可改变，这里不可改变的意思对基本类型来说是其值不可变，而对于对象变量来说其引用不可再变，但引用变量所指向的对象中的内容还是可以改变的。
 
-7.SELECT DATE_SUB(CURDATE(),INTERVAL 1 day); 当前时间为2018-11-11 结果为2018-11-10 
+10.查看进程 ps -ef | grep appStencil-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{print $2}'
 
-8.COALESCE 函数coalesce(comm,0) 等价于 case when 
+11.Java编程最基本的原则就是要追求高内聚和低耦合的解决方案和代码模块设计
 
-9.list里不要建立循环操作数据库 -----可以批量操作  查询的话可以批量查询存map里 map.put(id,object)，然后循环list取map数据 map.get(list.id)
+12.sql中对null处理要谨慎 COALESCE(a,0) 如果a为null按0处理
 
-10.Null 值不会等于或者不等于任何值，甚至不能与其自身作比较。因此，不能使用 = 或 != 来测试某一列的值是否为 Null。判断一行是否含有 Null，必须使用 IS Null。你也可以使用 IS NOT Null 来找到给定列的值不是 Null 的所有行。
+13.子类的构造方法总是先调用父类的构造方法，如果子类的构造方法没有明显地指明使用父类的哪个构造方法，子类就调用父类不带参数的构造方法。而父类没有无参的构造函数，所以子类需要在自己的构造函数中显示的调用父类的构造函数。
 
-11.通配符转义 SELECT *FROM S_USER  where  S_USER.ENNAME like '%/%%'  ESCAPE '/' 如果想要查带通配字符的字符串，则通配字符需要转义  (查询带%的字符串)
+14.常用的ASCII码值 空格为32 数字0为48  'A'为65 'a'为97    48 65 97---->0--a--A
 
-12.mybatis中$和#    #会预编译，而$不会，通常在字段设置值的时候，我们要使用#，假如我们的sql表名是一个变量tab_name 则用$ 
+15.查看某库的所有索引 SELECT * FROM mysql.`innodb_index_stats` a  WHERE  a.`database_name` = 'aihzhu';
 
-13. like问题  select *from user where name like '%hy%' (1) name like concat(concat('%',#{name}),'%')   (2)name like concat('%',#{name},'%')  (3)name like '%${name}%'    	    
-             oracle,db2只支持2个连接，mysql支持多个
+16.安全框架  认证 和 授权
 
- 
+17.clean install -Dmaven.test.skip=true  #打包
