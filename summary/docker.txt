@@ -4,8 +4,12 @@
     
  ²Î¼û£ºhttps://www.cnblogs.com/rookie404/p/5965518.html
 
-2.docker images  
+2.docker pull 
+   
+  docker images  
 
   docker ps 
   
   docker run
+
+ ÀýÈç docker run --name mynginx -d -p 80:80 nginx  
