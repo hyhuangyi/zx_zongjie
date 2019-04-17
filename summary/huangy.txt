@@ -2,6 +2,8 @@
 1252983+50000=1302983-5000=1297983
 杭州分行武林支行  6214835896135132 
 
+狍狍：340222199504101621
+
 1.WHERE 子句会比 SELECT 子句先执行   FROM 子句会先于 WHERE 子句执行  
 
 2.创建视图 create view v as select id,name from user
