@@ -79,4 +79,18 @@ git log
 git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96 
 
 强制提交到master分支（具体需要提交到哪个分支请酌情修改，此例为提交到master分支）
-git push -f -u origin master		
+git push -f -u origin master	
+
+
+具体原因是git开启了自动转换行符的操作
+
+目前最稳妥的做法是关闭自动换行的设置
+
+对于git bash用户使用命令：
+
+git config --global core.autocrlf false
+
+
+为了保证文件的换行符是以安全的方法，避免windows与unix的换行符混用的情况，最好也加上这么一句
+
+git config --global core.safecrlf true
