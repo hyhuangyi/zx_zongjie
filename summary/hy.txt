@@ -1,0 +1,22 @@
+
+#500丁 18156280514/MXWA369198395
+http://www.500d.me/      
+
+#作业平台  
+18627175986/xyh123456@ 
+http://mcwp.test.zhudb.com/
+
+#运营平台 superuser/12345678
+http://op.test.zhudb.com/backend/swagger-ui.html#/
+http://op.test.zhudb.com/login
+
+#构建jenkins  jenkins/56uv5Y-j
+http://jenkins.dev-service.zhudb.com/ 
+
+#日志kibana  admin/Banger123!@#
+https://op-kibana.zhudb.com
+
+#代码检测
+http://sonar.dev-service.zhudb.com/projects
+
+
