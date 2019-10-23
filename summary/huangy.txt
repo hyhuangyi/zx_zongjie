@@ -21,6 +21,9 @@
 子查询返回多行，那么查询将会出错。
 
 6.nohup java -server -Xms256m -Xmx256m -Xmn256m -jar xx.jar &
+-Xms:初始堆大小
+-Xmx:最大堆大小
+-Xmn:新生代大小
 
 7.通配符转义 SELECT *FROM S_USER  where  S_USER.ENNAME like '%/%%'  ESCAPE '/' 如果想要查带通配字符的字符串，则通配字符需要转义  (查询带%的字符串)
 
@@ -46,3 +49,8 @@
 16.安全框架  认证 和 授权
 
 17.clean install -Dmaven.test.skip=true  #打包
+
+18.echo begin....
+     call mvn install:install-file  -Dfile=d:/hnsdk-1.0-SNAPSHOT.jar  -DgroupId=hy -DartifactId=hy -Dversion=1.0.0 -Dpackaging=jar
+     echo end....
+    pause
