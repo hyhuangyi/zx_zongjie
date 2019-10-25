@@ -1,0 +1,22 @@
+<html>
+    <head><script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script></head>
+    <body>测试跨域</body>
+</html>
+<script>
+$(function(){
+    $.ajax({
+      type: "GET",
+	  xhrFields: {
+       withCredentials: false    // 前端设置是否带cookie
+	},
+	 headers: {
+           'authorization': "U2PGBjguSuJg" //请求头
+          },
+	crossDomain: true,   // 会让请求头中包含跨域的额外信息，但不会含cookie
+      url: "http://192.168.10.18:8088/zx/comm/zx",
+      success: function(data){
+         alert(data.data );
+       }
+    });
+})  
+</script>
