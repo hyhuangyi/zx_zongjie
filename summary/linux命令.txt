@@ -86,6 +86,8 @@ pgrep cron 或  ps -ef | grep cron
       29.lsof -i:8080 或者  netstat -anp|grep 8080   查看端口被哪个进程占用
       
       30.grant all privileges on *.* to '用户名'@'%' identified by '登录密码' with grant option; 授权远程登录指令  flush privileges; 刷新权限
+
+      31.mysql_secure_installation  安全配置向导
  
       
 	
