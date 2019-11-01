@@ -84,6 +84,10 @@ pgrep cron 或  ps -ef | grep cron
       28.直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的
 
       29.lsof -i:8080 或者  netstat -anp|grep 8080   查看端口被哪个进程占用
+      
+      30.grant all privileges on *.* to '用户名'@'%' identified by '登录密码' with grant option; 授权远程登录指令  flush privileges; 刷新权限
+ 
+      
 	
 
 
