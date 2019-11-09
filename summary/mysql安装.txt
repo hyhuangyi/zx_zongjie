@@ -50,3 +50,21 @@ datadir=E:\mysql-5.6.41-winx64\data
 
    GRANT   ALL   PRIVILEGES   ON   *.*   TO   'root'@'%' IDENTIFIED BY '111111'  WITH   GRANT   OPTION;
    FLUSH   PRIVILEGES;
+
+linux 上安装 几个注意点  https://yq.aliyun.com/articles/716984?spm=a2c4e.11155472.0.0.1e153416OLAGnm
+
+     1. grep "password" /var/log/mysqld.log 为了加强安全性，MySQL5.7为root用户随机生成了一个密码，在error log中，关于error log的位置，如果安装的是RPM包，则默认是/var/log/mysqld.log
+		
+     2.  mysql_secure_installation  安全配置向导  
+      
+     3 .Failed! Error: Your password does not satisfy the current policy requirements
+        set global validate_password_policy=0; 强度   set global validate_password_length=4; 长度  
+
+     4 .grant all privileges on *.* to '用户名'@'%' identified by '登录密码' with grant option; 授权远程登录指令  flush privileges; 刷新权限
+
+     5. [Err] 1055 - Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 'information_schema.PROFILING.SEQ' which is not
+           functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+      在my.cnf 里面设置
+      sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION’
+
+    6. service mysqld start /stop/restart
