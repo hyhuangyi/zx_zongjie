@@ -1,15 +1,37 @@
                                                     docker容器技术
 
-1.linux下docker安装
-    
- 参见：https://www.cnblogs.com/rookie404/p/5965518.html
+  yum install docker  安装docker
+  service docker start/stop/restart   启动/停止/重启 docker
+  docker  -v    获取docker版本
 
-2.docker pull 
-   
-  docker images  
 
-  docker ps 
+  docker pull xxx 默认获取最新版本，即TAG为latest的，如果要获取其他版本，则需要使用 sudo docker pull  xxx:xxxx
+  docker images 列出所有镜像
+  docker rmi xxx   来删除指定的镜像（先删除镜像中的容器，再删除该镜像，相同imgage id 根据repository:tag）
+
+ 
+  docker ps  -a  查看存在的容器信息
+  docker rm xxx 指定容器名或者容器id来删除，删除前请先停止容器，保证在非运行状态
+  docker start/stop/restart xxx 来启动、停止、重启指定的容器  
+
   
-  docker run
+  docker run 命令详解
+  例如：
+  docker run --name  zx -e MYSQL_ROOT_PASSWORD=sgcc -d -i -p 3306:3306  mysql:5.7
+     
+　　--name指定容器的名字  最后的mysql:5.7表示要运行的镜像名字  有tag的加上tag 如 mysql:xxx  默认为latest
+        -e  设置环境变量
+        -d  后台运行   
+　　 -p  8800:80 是指定对外暴露的端口  容器内部用80 对应外部宿主主机的的8800  代理一样	
+        
 
- 例如 docker run --name mynginx -d -p 80:80 nginx  
+  docker exec -it  xxx  /bin/bash  通过exec命令进入到容器内部进行操作， 其中xxx可以是容器id或容器名字
+
+  docker commit   zx   hy:v1    生成新的镜像供下次直接使用
+
+    zx   表示我们刚修改的容器名字或者id
+   hy:v1 为保存的镜像名字:后面为tag
+
+ docker login   登录
+ docker push hy:v1  上传镜像
+需要注意的是：docker commit zx  hy:v1 镜像名里面包含了 我注册的账户名，这里需要一致，否则无法push
