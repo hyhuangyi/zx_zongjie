@@ -54,3 +54,5 @@
      call mvn install:install-file  -Dfile=d:/hnsdk-1.0-SNAPSHOT.jar  -DgroupId=hy -DartifactId=hy -Dversion=1.0.0 -Dpackaging=jar
      echo end....
     pause
+
+19 .netstat   -ano|findstr 8080  查找端口占用情况   taskkill /f /pid xxx  杀死进程
