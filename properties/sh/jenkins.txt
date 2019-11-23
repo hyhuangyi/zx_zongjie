@@ -1,0 +1,55 @@
+window下
+
+关闭tomcat
+e:
+cd bin\apache-tomcat-8.5.31\bin  
+call shutdown.bat
+
+打包
+mvn install -Dmaven.test.skip=true -o
+
+复制war到tomcat
+f:
+cd webapp\target
+copy /y webapp-1.0-SNAPSHOT.war e:\bin\apache-tomcat-8.5.31\webapps
+
+删除文件
+e:
+cd bin\apache-tomcat-8.5.31\webapps
+if exist webapp-1.0-SNAPSHOT (rd /s /q  webapp-1.0-SNAPSHOT) else (echo miss)
+
+启动tomcat
+e:
+cd bin\apache-tomcat-8.5.31\bin
+call startup.bat
+
+
+
+linux下
+jenkins 构建shell步骤 1.打包 2.执行脚本
+
+#!/bin/sh
+cd /var/lib/jenkins/workspace/zx-parent
+mvn install -Dmaven.test.skip=true
+echo "**********打包完成**************"
+
+#!/bin/sh
+cd /home/zx/script
+echo "************执行stop.sh  停止jar*************"
+sh stop.sh
+echo "************执行replace.sh 替换jar*************"
+sh replace.sh
+echo "***********执行start.sh 启动jar*****************"
+BUILD_ID=dontKillMe nohup sh /home/zx/script/start.sh &
+
+
+//启动jar
+nohup java -server -Xms512m -Xmx512m -Xmn256m -jar zx.jar &
+//打包
+mvn install -Dmaven.test.skip=true -o
+//查找pid
+ps -ef | grep zx.jar | grep -v grep | awk '{print $2}'
+//后台启动并输出日志
+BUILD_ID=dontKillMe nohup sh /home/zx/script/start.sh >>./weblog/`date +%F`.zx.log &
+
+
