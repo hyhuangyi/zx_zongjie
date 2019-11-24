@@ -78,6 +78,8 @@ git log
 回退到某个版本命令
 git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96 
 
+git reflog 回退错使用这个参考 https://blog.csdn.net/z69183787/article/details/79006608
+
 强制提交到master分支（具体需要提交到哪个分支请酌情修改，此例为提交到master分支）
 git push -f -u origin master	
 
