@@ -16,7 +16,17 @@ http://jenkins.dev-service.zhudb.com/
 #日志kibana  admin/Banger123!@#
 https://op-kibana.zhudb.com
 
-#代码检测
-http://sonar.dev-service.zhudb.com/projects
+
+qs-aliyun  39.105.142.29   root  Qsqx2018
+zx-aliyun  47.110.13.117   root  1qaz2wsx3edc@zx
+安装
+java  
+nginx
+redis       63179  zx@!qwer
+mysql     root/admin
+jenkins    zx/admin
+mq         zx/admin
 
 
+NATAPP官网 :  https://natapp.cn/
+cmd下进入natapp.exe 运行: natapp -authtoken=xxxxx
