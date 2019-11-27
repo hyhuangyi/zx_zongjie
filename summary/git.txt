@@ -83,6 +83,19 @@ git reflog 回退错使用这个参考 https://blog.csdn.net/z69183787/article/details/79
 强制提交到master分支（具体需要提交到哪个分支请酌情修改，此例为提交到master分支）
 git push -f -u origin master	
 
+未使用 git add 缓存代码时。
+ git checkout -- readme.md   放弃所有的文件修改可以使用 git checkout .  命令
+
+已经使用了  git add 缓存了代码。
+git reset HEAD readme.md   放弃所有的缓存可以使用 git reset HEAD . 命令。
+
+已经使用了  git commit 本地提交。
+git reset HEAD~   
+
+顺便说一下，如果commit注释写错了，只是想改一下注释，只需要：
+git commit --amend
+
+
 
 具体原因是git开启了自动转换行符的操作
 
