@@ -77,7 +77,7 @@ pgrep cron 或  ps -ef | grep cron
 
       25.usermod -a -G sudo hy 添加hy用户到sudo用户组
 
-      26.du du会显示指定的目录或文件所占用的磁盘空间。 du -sh * 查看当前目录下所有文件大小
+      26.du du会显示指定的目录或文件所占用的磁盘空间。 du -sh * 查看当前目录下所有文件大小  排序sudo du -sh *  | sort -nr
 
       27.stderr / stdin / stdout 分别指向与标准错误流 / 标准输入流 / 标准输出流相关联的 FILE 对象。
 
@@ -85,7 +85,7 @@ pgrep cron 或  ps -ef | grep cron
 
       29.lsof -i:8080 或者  netstat -anp|grep 8080   查看端口被哪个进程占用
       
-
+  
       
 	
 
