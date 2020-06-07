@@ -58,6 +58,7 @@ linux 上安装 几个注意点  https://yq.aliyun.com/articles/716984?spm=a2c4e.1115547
      2.  mysql_secure_installation  安全配置向导  
       
      3 .Failed! Error: Your password does not satisfy the current policy requirements
+        SHOW VARIABLES LIKE 'validate_password%'; 查看规则
         set global validate_password_policy=0; 强度   set global validate_password_length=4; 长度  
 
      4 .grant all privileges on *.* to '用户名'@'%' identified by '登录密码' with grant option; 授权远程登录指令  flush privileges; 刷新权限

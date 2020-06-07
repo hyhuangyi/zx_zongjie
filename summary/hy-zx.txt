@@ -20,7 +20,7 @@ ymf：340222199504101621  17755532275
 法。当使用标量子查询时，必须确保它们返回的是标量值（单值）。如果 SELECT 列表里的
 子查询返回多行，那么查询将会出错。
 
-6.nohup java -server -Xms256m -Xmx256m -Xmn256m -jar xx.jar &
+6.nohup java -server -Xms256m -Xmx256m -Xmn128m -jar xx.jar &
 -Xms:初始堆大小
 -Xmx:最大堆大小
 -Xmn:新生代大小
