@@ -56,3 +56,5 @@ ymf：340222199504101621  17755532275
     pause
 
 19 .netstat   -ano|findstr 8080  查找端口占用情况   taskkill /f /pid xxx  杀死进程
+
+20. npm install --registry=https://registry.npm.taobao.org
