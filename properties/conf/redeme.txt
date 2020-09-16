@@ -1,3 +1,3 @@
 rabbitmq 修改2处 {loopback_users, []}, {loopback_users, [zx]}
 
-redis   去掉# bind 127.0.0.1   修改端口 port 63179   设置密码 requirepass zx@!qwer   守护进程 daemonize yes
+redis   去掉# bind 127.0.0.1   修改端口 port 63179   允许远程访问protected-mode no  设置密码 requirepass zx@!qwer   守护进程 daemonize yes
