@@ -21,15 +21,13 @@ chmod是更改文件的权限   chown是改文件的属主与属组  chgrp只是更改文件的属组。
 
 			   不能获得环境变量而su - 是切换到root并获得root的环境变量及执行权限。
 
-      3.find /home/data -name "was8.5"    // 查找目录
+      3.find -name  zx.txt 或者 locate zx.txt   // 查找文件 2种方法  
 
       4.unzip hy.zip -d /home/data/hy    //解压
 
       5.ping www.baidu.com  //ping ip  ||   telnet www.baidu.com 80  // ping端口   
 
-      6.ps -ef | grep websphere   //查找websphere进程   ps aux //另一种查看进程的方法  显示其他用户启动的进程（a）
-										       查看系统中属于自己的进程（x）
-										       启动这个进程的用户和它启动的时间（u）
+      6.ps -ef | grep websphere   //查找websphere进程   ps aux //另一种查看进程的方法  显示其他用户启动的进程（a） 查看系统中属于自己的进程（x）   启动这个进程的用户和它启动的时间（u）
 
       7.kill -9 1234   //杀死进程1234
 
@@ -59,13 +57,11 @@ chmod是更改文件的权限   chown是改文件的属主与属组  chgrp只是更改文件的属组。
 
       19.crontab 定时任务 crontab -l 查看所有定时任务  crontab -e 添加任务   * * * * * sh /home/banger/demo.sh 每隔一分钟执行一次demo.sh
 
-         查看定时任务进程 ps aux | grep cron
+         查看定时任务进程 ps aux | grep cron 或  pgrep cron 或  ps -ef | grep cron
 
-  或  
-
-pgrep cron 或  ps -ef | grep cron
-
-      20.vi  i插入  esc 从编辑模式切换到命令模式  :w 保存 :q退出  :wq保存并退出
+      20.vi  i插入  esc 从编辑模式切换到命令模式  :w 保存 :q退出  :wq保存并退出 
+           撤销与恢复撤销：命令模式下 撤销： u 恢复撤销：Ctrl + r  
+           搜索：命令模式下，输入：/字符串 查看下一个匹配，按下n(小写n)  跳转到上一个匹配，按下N（大写N）
 
       21.half  poweroff  shutdown -h now(root用户) 立刻关机  shutdown -h 10   10分钟后自动关机
 
